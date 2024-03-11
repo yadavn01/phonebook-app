@@ -12,7 +12,7 @@ app.listen(PORT, ()=>
 })
 
 
-const DB = ''
+const DB = 'mongodb+srv://ynaman29:Kingbook232654%21@cluster0.ehvcym2.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 mongoose.connect(DB, {
     useNewUrlParser: true,
      useUnifiedTopology: true,
