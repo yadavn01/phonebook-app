@@ -17,7 +17,7 @@ function PhonebookApp() {
 
     return (
         <div className="container">
-            <h1>Phonebook</h1>
+            <h1>Phonebook app</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="name">Name:</label>
                 <input 
