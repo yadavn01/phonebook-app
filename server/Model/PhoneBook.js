@@ -5,8 +5,8 @@ const PhoneBookSchema = new mongoose.Schema({
     phone: {type:Number, requried: true}
 })
 
-const Phonebook = mongoose.model('PhoneBook', PhoneBookSchema)
+const PhoneBook = mongoose.model('PhoneBook', PhoneBookSchema)
 
-module.exports = Phonebook
+module.exports = PhoneBook
 
 

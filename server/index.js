@@ -2,9 +2,18 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 const mongoose = require('mongoose')
+const contactsRoutes = require("./Routes/contacts")
 
 app.use(express.json())
 app.use(cors())
+app.use(contactsRoutes);
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
+
 const PORT  = 8080
 app.listen(PORT, ()=> 
 {
@@ -19,3 +28,5 @@ mongoose.connect(DB, {
 }).then(() =>{
     console.log('Database connected..')
 })
+
+
