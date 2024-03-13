@@ -16,12 +16,16 @@ router.post('/add-phone', async(req,res) =>
         })
 
     }
-    catch{
+    catch(err){
         res.status(500).json({
             status: 'Failed',
             message: err.message
         })
     }
 })
+
+router.get('/', (req, res) => {
+    res.send('Welcome to the Phone Book API');
+});
 
 module.exports = router
