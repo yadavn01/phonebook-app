@@ -22,7 +22,8 @@ router.post('/add-phone', async(req,res) =>
             message: err.message
         })
     }
-})
+}
+)
 
 router.get('/', (req, res) => {
     res.send('Welcome to the Phone Book API');
