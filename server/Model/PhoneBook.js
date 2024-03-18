@@ -1,12 +1,10 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const PhoneBookSchema = new mongoose.Schema({
-    name : {type: String, required: true},
-    phone: {type:Number, requried: true}
-})
+    name: { type: String, required: true },
+    email: { type: String, required: true }
+});
 
-const PhoneBook = mongoose.model('PhoneBook', PhoneBookSchema)
-
-module.exports = PhoneBook
+module.exports = mongoose.model('PhoneBook', PhoneBookSchema);
 
 

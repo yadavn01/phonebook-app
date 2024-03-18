@@ -1,18 +1,21 @@
 const express = require('express');
-const router = express.Router(); 
+//const router = express.Router(); 
 const PhoneBook = require("../Model/PhoneBook")
+const app = express()
 
-router.post('/add-phone', async(req,res) => 
+
+// Add body-parser middleware to parse incoming JSON requests
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
+app.post('/add-phone', async(req,res) => 
 {
     const phoneNumber = new PhoneBook(req.body)
     try {
         await phoneNumber.save();
         res.status(201).json({
             status: 'Success',
-            data : 
-            {
-                phoneNumber
-            }
+            data : { phoneNumber }
         })
 
     }
@@ -25,8 +28,8 @@ router.post('/add-phone', async(req,res) =>
 }
 )
 
-router.get('/', (req, res) => {
+app.get('/', (req, res) => {
     res.send('Welcome to the Phone Book API');
 });
 
-module.exports = router
+module.exports = app
