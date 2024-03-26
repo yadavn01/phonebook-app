@@ -26,8 +26,21 @@ app.post('/add-phone', async(req,res) => {
     }
 })
 
-app.get('/', (req, res) => {
-    res.send('Welcome to the Phone Book API');
-});
+app.get('/get-phone', async (req,res) => {
+    const phoneNumbers = await PhoneBook.find({})
+    try{
+        res.status(200).json({
+            status : 'Success',
+            data : {
+                phoneNumbers
+            }
+        })
+    }catch(err){
+        res.status(500).json({
+            status: 'Failed',
+            message : err
+        })
+    }
+})
 
 module.exports = app
