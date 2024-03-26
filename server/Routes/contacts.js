@@ -8,25 +8,23 @@ const app = express()
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-app.post('/add-phone', async(req,res) => 
-{
+app.post('/add-phone', async(req,res) => {
     const phoneNumber = new PhoneBook(req.body)
-    try {
-        await phoneNumber.save();
+    try{
+        await phoneNumber.save()
         res.status(201).json({
             status: 'Success',
-            data : { phoneNumber }
+            data : {
+                phoneNumber
+            }
         })
-
-    }
-    catch(err){
+    }catch(err){
         res.status(500).json({
             status: 'Failed',
-            message: err.message
+            message : err
         })
     }
-}
-)
+})
 
 app.get('/', (req, res) => {
     res.send('Welcome to the Phone Book API');
