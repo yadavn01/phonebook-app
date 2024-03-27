@@ -43,4 +43,32 @@ app.get('/get-phone', async (req,res) => {
     }
 })
 
+app.patch('/update-phone/:id', async (req,res) => {
+    const updatedPhone = await PhoneBook.findByIdAndUpdate(req.params.id,req.body,{
+        new : true,
+        runValidators : true
+      })
+    try{
+        res.status(200).json({
+            status : 'Success',
+            data : {
+              updatedPhone
+            }
+          })
+    }catch(err){
+        console.log(err)
+    }
+})
+
+app.delete('/delete-phone/:id', async (req,res) => {
+    await PhoneBook.findByIdAndDelete(req.params.id)
+    try{
+        res.status(200).json({
+            status : 'Success',
+            data : {}
+          })
+    }catch(err){
+        console.log(err)
+    }
+})
 module.exports = app
