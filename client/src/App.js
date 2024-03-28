@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
+import Axios from 'axios'
+
 
 function PhonebookApp() {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [contacts, setContacts] = useState([]);
+
+    const addNewNumber = () => {
+        Axios.post('http://localhost:8080/add-phone',{name, phone})
+    }
+    
 
     const handleSubmit = (event) => {
         event.preventDefault();
