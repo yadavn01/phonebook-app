@@ -1,31 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Axios from 'axios'
 
 
 function PhonebookApp() {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
-    const [contacts, setContacts] = useState([]);
+    const [phonebook, setphonebook] = useState([]);
 
     const addNewNumber = () => {
         Axios.post('http://localhost:8080/add-phone',{name, phone})
     }
+
+    useEffect(() => {
+        Axios.get('http://localhost:8080/get-phone').then(res=> {
+            setphonebook(res.data.data.phoneNumbers)
+        })
+    })
     
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (name.trim() === '' || phone.trim() === '') {
-            return;
-        }
-        setContacts([...contacts, { name, phone }]);
-        setName('');
-        setPhone('');
-    };
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     if (name.trim() === '' || phone.trim() === '') {
+    //         return;
+    //     }
+    //     setContacts([...contacts, { name, phone }]);
+    //     setName('');
+    //     setPhone('');
+    // };
 
     return (
         <div className="container">
             <h1>Phonebook app</h1>
-            <form onSubmit={handleSubmit}>
+           
                 <label htmlFor="name">Name:</label>
                 <input 
                     type="text" 
@@ -36,18 +42,17 @@ function PhonebookApp() {
                 />
                 <label htmlFor="phone">Phone:</label>
                 <input 
-                    type="tel" 
+                    type="number" 
                     id="phone" 
                     value={phone} 
                     onChange={(e) => setPhone(e.target.value)} 
-                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" 
                     required 
                 />
-                <input type="submit" value="Add Contact" />
-            </form>
+                 <button onClick={addNewNumber}>Add New Number</button>
+        
             <ul>
-                {contacts.map((contact, index) => (
-                    <li key={index}>{contact.name}: {contact.phone}</li>
+                {phonebook.map((value, key) => (
+                    <li key={key}>{value.name}: {value.phone}</li>
                 ))}
             </ul>
         </div>
