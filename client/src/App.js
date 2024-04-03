@@ -6,7 +6,7 @@ function PhonebookApp() {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [phonebook, setphonebook] = useState([]);
-    const [newPhone, setNewPhone] = useState(0);
+    const [newPhone, setNewPhone] = useState('');
 
     const addNewNumber = () => {
         Axios.post('http://localhost:8080/add-phone',{name, phone})
@@ -20,18 +20,15 @@ function PhonebookApp() {
 
     const updatePhone = (id) => {
         Axios.put('http://localhost:8080/udpate-phone', {id, newPhone})
+        .then(response => {
+            // Handle success response if needed
+            console.log(response.data);
+        }) 
+        .catch(error => {
+            // Handle error response if needed
+            console.error(error);
+        });
     }
-    
-
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     if (name.trim() === '' || phone.trim() === '') {
-    //         return;
-    //     }
-    //     setContacts([...contacts, { name, phone }]);
-    //     setName('');
-    //     setPhone('');
-    // };
 
     return (
         <div className="container">
@@ -53,13 +50,21 @@ function PhonebookApp() {
                     onChange={(e) => setPhone(e.target.value)} 
                     required 
             />
-            <button onClick={addNewNumber}>Add New Number</button>
+            <button className="add-btn" onClick={addNewNumber}>Add New Number</button>
 
+            <>
             {phonebook.map((value, key) => (
-                <ul key={key} className='phone'>
+                <React.Fragment key={key}>
+                <ul className='phone'>
                     <li>{value.name}: {value.phone}</li>
                 </ul>
-            ))}s
+                <input type="number" placeholder='update Phone...' onChange={(e) => {
+              setNewPhone(e.target.value)
+            }}/>
+                <button className="update-btn" onClick={() => {updatePhone(value._id)}}>Update</button>
+                </React.Fragment>
+            ))}
+            </>
         </div>
     );
 }
