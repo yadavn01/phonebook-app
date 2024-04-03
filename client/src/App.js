@@ -6,6 +6,7 @@ function PhonebookApp() {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [phonebook, setphonebook] = useState([]);
+    const [newPhone, setNewPhone] = useState(0);
 
     const addNewNumber = () => {
         Axios.post('http://localhost:8080/add-phone',{name, phone})
@@ -16,6 +17,10 @@ function PhonebookApp() {
             setphonebook(res.data.data.phoneNumbers)
         })
     })
+
+    const updatePhone = (id) => {
+        Axios.put('http://localhost:8080/udpate-phone', {id, newPhone})
+    }
     
 
     // const handleSubmit = (event) => {
@@ -47,14 +52,14 @@ function PhonebookApp() {
                     value={phone} 
                     onChange={(e) => setPhone(e.target.value)} 
                     required 
-                />
-                 <button onClick={addNewNumber}>Add New Number</button>
-        
-            <ul>
-                {phonebook.map((value, key) => (
-                    <li key={key}>{value.name}: {value.phone}</li>
-                ))}
-            </ul>
+            />
+            <button onClick={addNewNumber}>Add New Number</button>
+
+            {phonebook.map((value, key) => (
+                <ul key={key} className='phone'>
+                    <li>{value.name}: {value.phone}</li>
+                </ul>
+            ))}s
         </div>
     );
 }
