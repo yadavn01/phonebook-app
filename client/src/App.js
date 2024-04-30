@@ -19,7 +19,7 @@ function PhonebookApp() {
   });
 
   const updatePhone = (id) =>{
-    Axios.put('http://localhost:8080/update-phone', { id, newPhone })
+    Axios.put(`http://localhost:8080/update-phone`, { id, newPhone })
         .then(response => {
             // Handle success response if needed
             console.log(response.data);
@@ -28,6 +28,17 @@ function PhonebookApp() {
             // Handle error response if needed
             console.error(error);
         });
+}
+
+const deletePhone = (id) => {
+  Axios.delete(`http://localhost:8080/delete-phone/${id}`)
+  .then(response => {
+    console.log(response.body);
+  })
+  .catch(error => {
+    console.log(error);
+  })
+
 }
 
   return (
@@ -64,6 +75,7 @@ function PhonebookApp() {
               setNewPhone(e.target.value)
             }}/>
             <button className="update-btn" onClick={() => {updatePhone(val._id)}}>Update</button>
+            <button className="delete-btn" onClick={() => {deletePhone(val._id)}}>Delete</button>
           </div>
         })
       }
