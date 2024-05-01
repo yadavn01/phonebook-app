@@ -6,7 +6,7 @@ function PhonebookApp() {
   const [phone, setPhone] = useState("");
   const [phonebook, setphonebook] = useState([]);
   const [newPhone, setNewPhone] = useState(0);
-  const [newName, setNewName] = useState(0);
+ // const [newName, setNewName] = useState(0);
 
   const addNewNumber = () => {
     Axios.post("http://localhost:8080/add-phone", { name, phone });
@@ -18,16 +18,17 @@ function PhonebookApp() {
     });
   });
 
-  const updatePhone = (id) =>{
-    Axios.put(`http://localhost:8080/update-phone`, { id, newPhone })
-        .then(response => {
-            // Handle success response if needed
-            console.log(response.data);
-        })
-        .catch(error => {
-            // Handle error response if needed
-            console.error(error);
-        });
+  
+
+  const updatePhone = async (id) =>{
+    try {
+      const response = await Axios.put(`http://localhost:8080/update-phone`, { id, newPhone });
+      // Handle success response if needed
+      console.log(response.data);
+  } catch (error) {
+      // Handle error response if needed
+      console.log(error);
+  }
 }
 
 const deletePhone = (id) => {
@@ -74,7 +75,7 @@ const deletePhone = (id) => {
             <input type="text" placeholder='update Phone...' onChange={(e) => {
               setNewPhone(e.target.value)
             }}/>
-            <button className="update-btn" onClick={() => {updatePhone(val._id)}}>Update</button>
+            {/* <button className="update-btn" onClick={() => {updatePhone(val._id)}}>Update</button> */}
             <button className="delete-btn" onClick={() => {deletePhone(val._id)}}>Delete</button>
           </div>
         })
